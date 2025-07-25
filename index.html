@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maverick Turfs - Booking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="relative min-h-screen flex flex-col items-center justify-center text-white overflow-hidden">
+        <!-- Navbar -->
+        <nav class="absolute top-0 left-0 right-0 z-20 bg-black bg-opacity-20 backdrop-blur-sm">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold">Maverick Turfs</div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <button class="nav-link hover:text-blue-300 transition-colors">Turfs</button>
+                    <button class="nav-link hover:text-blue-300 transition-colors">My Bookings</button>
+                    <button class="nav-link bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md transition-colors">Login</button>
+                    <button id="landing-theme-toggle" class="p-2 rounded-full text-white">
+                        <svg id="landing-theme-icon-light" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="landing-theme-icon-dark" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Carousel Background -->
+        <div class="absolute inset-0 w-full h-full">
+            <div id="carousel-container" class="w-full h-full">
+                <div class="carousel-item active w-full h-full bg-cover bg-center" style="background-image: url('https://5.imimg.com/data5/SELLER/Default/2023/6/314581510/TP/SX/HK/7956182/cricket-pitch-astro-turf-9mm.jpg');"></div>
+                <div class="carousel-item w-full h-full bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/13907445/pexels-photo-13907445.jpeg');"></div>
+                <div class="carousel-item w-full h-full bg-cover bg-center" style="background-image: url('https://5.imimg.com/data5/SELLER/Default/2023/10/350337164/BC/OU/ML/38215148/box-cricket-setup.jpeg');"></div>
+            </div>
+            <div class="absolute inset-0 bg-black opacity-60"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 text-center p-4 mt-16">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">Maverick Turfs</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">Your premier destination for booking top-quality sports turfs. Day or night, your game is on.</p>
+            <button id="enter-app-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105">
+                Book Your Slot
+            </button>
+        </div>
+    </div>
+
+    <!-- Auth Page -->
+    <div id="auth-page" class="hidden min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
+        <div class="w-full max-w-md">
+            <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">Welcome to Maverick Turfs</h1>
+            <div class="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-lg">
+                <div class="flex border-b border-gray-200 dark:border-gray-700">
+                    <button id="player-tab" class="tab-button flex-1 py-3 text-center font-semibold border-b-2 transition-colors">Player</button>
+                    <button id="admin-tab" class="tab-button flex-1 py-3 text-center font-semibold border-b-2 transition-colors">Admin</button>
+                </div>
+                <div id="auth-forms" class="p-6">
+                    <!-- Player Forms -->
+                    <div id="player-auth-forms">
+                        <form id="player-login-form" class="space-y-4">
+                            <h2 class="text-xl font-semibold text-center">Player Login</h2>
+                            <input type="text" id="player-username" placeholder="Username" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <input type="password" id="player-password" placeholder="Password" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">Login</button>
+                            <p id="player-login-error" class="text-red-500 text-sm text-center"></p>
+                            <p class="text-center text-sm">Don't have an account? <button type="button" id="show-register-btn" class="text-blue-500 hover:underline">Register here</button></p>
+                        </form>
+                        <form id="player-register-form" class="hidden space-y-4">
+                            <h2 class="text-xl font-semibold text-center">Player Registration</h2>
+                            <input type="text" id="register-username" placeholder="Choose a Username" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <input type="password" id="register-password" placeholder="Choose a Password" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded">Register</button>
+                             <p id="player-register-error" class="text-red-500 text-sm text-center"></p>
+                            <p class="text-center text-sm">Already have an account? <button type="button" id="show-login-btn" class="text-blue-500 hover:underline">Login here</button></p>
+                        </form>
+                    </div>
+                    <!-- Admin Form -->
+                    <div id="admin-auth-form" class="hidden">
+                        <form id="admin-login-form" class="space-y-4">
+                            <h2 class="text-xl font-semibold text-center">Admin Login</h2>
+                            <input type="text" id="admin-username" placeholder="Admin Username" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <input type="password" id="admin-password" placeholder="Password" class="w-full p-3 rounded bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600" required>
+                            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded">Login as Admin</button>
+                            <p id="admin-login-error" class="text-red-500 text-sm text-center"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="main-app" class="hidden">
+        <div class="container mx-auto p-4 md:p-6 lg:p-8">
+            <header class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Maverick Turfs</h1>
+                <div class="flex items-center space-x-4">
+                    <span id="welcome-message" class="text-sm hidden md:block"></span>
+                    <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700">
+                        <svg id="theme-icon-light" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="theme-icon-dark" class="h-6 w-6 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    </button>
+                    <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Logout</button>
+                </div>
+            </header>
+
+            <main id="app-container">
+                <!-- Player View -->
+                <div id="player-view" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Available Turfs</h2>
+                    
+                    <!-- Filter Section -->
+                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-6">
+                        <form id="filter-form" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                            <div class="md:col-span-2">
+                                <label for="filter-location" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Location / Area</label>
+                                <input type="text" id="filter-location" placeholder="e.g., Andheri, Juhu" class="mt-1 block w-full p-2 rounded-md bg-gray-200 dark:bg-gray-700 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-0">
+                            </div>
+                            <div>
+                                <label for="filter-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
+                                <input type="date" id="filter-date" class="mt-1 block w-full p-2 rounded-md bg-gray-200 dark:bg-gray-700 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-0">
+                            </div>
+                            <div>
+                                <label for="filter-time" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Time</label>
+                                <select id="filter-time" class="mt-1 block w-full p-2 rounded-md bg-gray-200 dark:bg-gray-700 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-0">
+                                    <!-- Time options will be populated by JS -->
+                                </select>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">Filter</button>
+                                <button type="button" id="filter-reset-btn" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="turf-list"></div>
+                    <div class="mt-10">
+                        <h2 class="text-2xl font-bold mb-4">My Bookings</h2>
+                        <div id="my-bookings" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <!-- Admin View -->
+                <div id="admin-view" class="hidden space-y-10">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Pending Approvals</h2>
+                        <div id="pending-approvals" class="space-y-4"></div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Manage Your Turfs</h2>
+                        <div id="admin-turfs-list" class="space-y-8"></div>
+                    </div>
+                     <div>
+                        <h2 class="text-2xl font-bold mb-4">Add a New Turf</h2>
+                        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                            <form id="add-turf-form" class="space-y-4">
+                                <input type="text" id="turf-name" placeholder="Turf Name" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border" required>
+                                <input type="text" id="turf-location" placeholder="Location" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border" required>
+                                <input type="number" id="turf-price" placeholder="Price per hour" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border" required>
+                                <input type="text" id="turf-image" placeholder="Image URL" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border" required>
+                                <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Add Turf</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="booking-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl">
+            <div class="p-6 border-b dark:border-gray-700">
+                <h3 class="text-xl font-semibold" id="modal-turf-name">Book a Slot</h3>
+            </div>
+            <div class="p-6">
+                <input type="date" id="booking-date" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border dark:border-gray-600 mb-4">
+                <div id="time-slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2"></div>
+            </div>
+            <div class="p-6 bg-gray-50 dark:bg-gray-700 flex justify-between items-center space-x-4">
+                <div id="booking-summary" class="font-semibold text-sm">Select one or more slots.</div>
+                <div class="flex items-center space-x-2">
+                    <button id="confirm-booking-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Proceed to Book</button>
+                    <button id="close-modal-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="payment-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md text-center p-6"><h3 class="text-lg font-medium text-gray-900 dark:text-white">Confirm Payment</h3><div class="mt-2 text-sm text-gray-500 dark:text-gray-300"><p>You are about to book the following slots. This is a payment simulation.</p><div id="payment-details" class="mt-4 text-left space-y-1"></div><p id="payment-total" class="mt-4 font-bold text-lg"></p></div><div class="mt-6 flex justify-end space-x-3"><button id="cancel-payment-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancel</button><button id="confirm-payment-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Pay Now</button></div></div></div>
+    <div id="confirmation-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md text-center p-6"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 mb-4"><svg class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h3 class="text-lg font-medium text-gray-900 dark:text-white">Booking Pending!</h3><div class="mt-2 text-sm text-gray-500 dark:text-gray-300"><p>Your booking request has been sent to the turf owner for approval.</p><p id="confirmation-details" class="mt-2 font-semibold"></p></div><div class="mt-4"><button id="close-confirmation-modal-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">OK</button></div></div></div>
+    <div id="block-slot-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4"><div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6"><h3 class="text-lg font-medium">Block a Time Slot</h3><div class="space-y-4 mt-4"><input type="date" id="block-date" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border dark:border-gray-600"><select id="block-time" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border dark:border-gray-600"></select><input type="text" id="block-reason" placeholder="Reason (e.g., Maintenance)" class="w-full p-2 rounded bg-gray-200 dark:bg-gray-700 border dark:border-gray-600"></div><div class="mt-6 flex justify-end space-x-3"><button id="close-block-modal-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancel</button><button id="confirm-block-slot-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Block Slot</button></div></div></div>
+    
+    <!-- Cancellation Confirmation Modal -->
+    <div id="cancel-confirm-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Cancel Booking</h3>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-300">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+            <div class="mt-6 flex justify-end space-x-4">
+                <button id="cancel-modal-no-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">No</button>
+                <button id="cancel-modal-yes-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

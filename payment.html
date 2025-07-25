@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Razorpay Payment Simulation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f5f9;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      width: 400px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .method {
+      border: 2px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .method:hover {
+      border-color: #2d89ef;
+    }
+
+    .method.selected {
+      border-color: #2d89ef;
+      background: #eef5ff;
+    }
+
+    .method img {
+      width: 30px;
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #2d89ef;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1f6edc;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #2d89ef;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .success {
+      display: none;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .label {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Simulated Razorpay Payment</h2>
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="number" id="amount" placeholder="Amount (INR)">
+
+    <div class="methods" id="paymentMethods">
+      <div class="method" data-method="UPI">
+        <img src="https://img.icons8.com/color/48/upi.png" alt="UPI" />
+        <span class="label">UPI</span>
+      </div>
+      <div class="method" data-method="Credit Card">
+        <img src="https://img.icons8.com/color/48/mastercard-logo.png" alt="Credit" />
+        <span class="label">Credit</span>
+      </div>
+      <div class="method" data-method="Debit Card">
+        <img src="https://img.icons8.com/color/48/visa.png" alt="Debit" />
+        <span class="label">Debit</span>
+      </div>
+      <div class="method" data-method="Netbanking">
+        <img src="https://img.icons8.com/fluency/48/bank.png" alt="Netbanking" />
+        <span class="label">Netbanking</span>
+      </div>
+      <div class="method" data-method="Wallet">
+        <img src="https://img.icons8.com/color/48/paytm.png" alt="Wallet" />
+        <span class="label">Wallet</span>
+      </div>
+      <div class="method" data-method="EMI">
+        <img src="https://img.icons8.com/color/48/installment.png" alt="EMI" />
+        <span class="label">EMI</span>
+      </div>
+    </div>
+
+    <button onclick="simulatePayment()">Pay Now</button>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Processing Payment...</p>
+    </div>
+
+    <div class="success" id="success">
+      ✅ Payment Successful!
+    </div>
+  </div>
+
+  <script>
+    let selectedMethod = null;
+
+    document.querySelectorAll('.method').forEach(method => {
+      method.onclick = () => {
+        document.querySelectorAll('.method').forEach(m => m.classList.remove('selected'));
+        method.classList.add('selected');
+        selectedMethod = method.getAttribute('data-method');
+      };
+    });
+
+    function simulatePayment() {
+      const name = document.getElementById("name").value.trim();
+      const amount = document.getElementById("amount").value.trim();
+
+      if (!name || !amount || !selectedMethod) {
+        alert("Please enter all details and select a payment method.");
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('success').style.display = 'none';
+
+      setTimeout(() => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+
+        const fakeId = "FAKE" + Math.floor(Math.random() * 1000000000);
+        alert(`🎉 Payment Successful!\n\nName: ${name}\nAmount: ₹${amount}\nMethod: ${selectedMethod}\nPayment ID: ${fakeId}`);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
